@@ -8,11 +8,15 @@
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>nav2_common</build_depend>
   <depend>eigen</depend>
   <depend>rclcpp</depend>
   <depend>launch_ros</depend>
   <depend>tf2_geometry_msgs</depend>
+  <depend>message_filters</depend>
   <depend>tf2_eigen</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2</depend>
   <depend>nav_msgs</depend>
   <depend>launch_testing</depend>
   <depend>std_srvs</depend>

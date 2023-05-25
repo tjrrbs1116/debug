@@ -7,9 +7,11 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(nav2_common REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(rclcpp_components REQUIRED)
+find_package(message_filters REQUIRED)
 find_package(nav2_util REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -20,6 +22,8 @@ find_package(std_srvs REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2 REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -39,14 +43,18 @@ set(dependencies
   rclcpp
   rclcpp_lifecycle
   rclcpp_components
+  message_filters
   nav2_util
   geometry_msgs
   sensor_msgs
   std_srvs
   pluginlib
   nav_msgs
+  nav2_msgs
   tf2_geometry_msgs
   tf2_eigen
+  tf2_ros
+  tf2
 )
 
 add_library(${library_name} SHARED
