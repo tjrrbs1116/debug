@@ -11,11 +11,12 @@
 #include "tf2_ros/transform_broadcaster.h"
 #include "tf2_ros/transform_listener.h"
 #include "pluginlib/class_loader.hpp"
-
-
+#include <nav_msgs/msg/odometry.hpp>
 
 #include "message_filters/subscriber.h"
+
 #include "nav2_util/geometry_utils.hpp"
+#include "nav2_amcl/pf/pf.hpp"
 #include "nav2_util/string_utils.hpp"
 #include "tf2/convert.h"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
@@ -25,12 +26,6 @@
 #include "tf2_ros/transform_broadcaster.h"
 #include "tf2_ros/transform_listener.h"
 #include "tf2_ros/create_timer_ros.h"
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wreorder"
-#include "tf2_ros/message_filter.h"
-#pragma GCC diagnostic pop
 
 #include <atomic>
 #include <map>
@@ -62,11 +57,12 @@ namespace map2odom
       // static tf2_ros::StaticTransformBroadcaster static_broadcaster;
       // geometry_msgs::TransformStamped static_tranformStamped;
       rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::ConstSharedPtr initial_pose_sub_;
-      rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::ConstSharedPtr odom_pose_sub_;
+      rclcpp::Subscription<nav_msgs::msg::Odometry>::ConstSharedPtr odom_pose_sub_;
       void initialPoseReceived(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
-      void OdomsubReceived(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
-
+      void OdomsubReceived(nav_msgs::msg::Odometry::SharedPtr msg);
+      bool initial_pose;
       geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr last_sub_odom_;
+      geometry_msgs::msg::TransformStamped transformStamped;
     private:
 
 
