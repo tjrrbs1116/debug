@@ -1,8 +1,6 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "message_filters/subscriber.h"
 #include "nav2_util/lifecycle_node.hpp"
-#include "nav2_amcl/motion_model/motion_model.hpp"
-#include "nav2_amcl/sensors/laser/laser.hpp"
 #include "nav2_msgs/msg/particle.hpp"
 #include "nav2_msgs/msg/particle_cloud.hpp"
 #include "nav_msgs/srv/set_map.hpp"
@@ -48,7 +46,7 @@ namespace map2odom
       std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
       // std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_;
 
-      
+
       std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
       std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -58,11 +56,15 @@ namespace map2odom
       // geometry_msgs::TransformStamped static_tranformStamped;
       rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::ConstSharedPtr initial_pose_sub_;
       rclcpp::Subscription<nav_msgs::msg::Odometry>::ConstSharedPtr odom_pose_sub_;
-      void initialPoseReceived(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
-      void OdomsubReceived(nav_msgs::msg::Odometry::SharedPtr msg);
+      void initialPoseReceived(const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
+      void OdomsubReceived(const nav_msgs::msg::Odometry::SharedPtr msg);
+      void OdomsubReceived_t1(const nav_msgs::msg::Odometry::SharedPtr msg);
+      void OdomsubReceived_t2(const nav_msgs::msg::Odometry::SharedPtr msg);
       bool initial_pose;
       geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr last_sub_odom_;
       geometry_msgs::msg::TransformStamped transformStamped;
+      geometry_msgs::msg::TransformStamped transformStamped1;
+      geometry_msgs::msg::TransformStamped transformStamped2;
     private:
 
 
