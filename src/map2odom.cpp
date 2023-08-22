@@ -8,7 +8,7 @@ namespace map2odom{
   map2odom::map2odom(const rclcpp::NodeOptions & options)
   : Node("map2odom" , options)
   {
-      RCLCPP_INFO(get_logger(), "map2odon starting");
+      RCLCPP_INFO(get_logger(), "map2odon starting2");
 
       initial_pose_sub_ = create_subscription<geometry_msgs::msg::PoseWithCovarianceStamped>(
     "initialpose", rclcpp::SystemDefaultsQoS(),
@@ -31,6 +31,8 @@ namespace map2odom{
 void
 map2odom::initialPoseReceived(const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg)
 {
+
+  RCLCPP_INFO(get_logger(), "this is");
 //   double q_x = msg->pose.pose.orientation.x;
 //   double q_y = msg->pose.pose.orientation.y;
 //   double q_z = msg->pose.pose.orientation.z;
@@ -75,7 +77,7 @@ map2odom::initialPoseReceived(const geometry_msgs::msg::PoseWithCovarianceStampe
 
   //test_1
   transformStamped1.header.frame_id = "map";
-  transformStamped1.child_frame_id = "odom1";
+  transformStamped1.child_frame_id = "odom2";
   transformStamped1.transform.translation.x = msg->pose.pose.position.x;
   transformStamped1.transform.translation.y = msg->pose.pose.position.y;
   transformStamped1.transform.translation.z = 0.0;
@@ -85,15 +87,15 @@ map2odom::initialPoseReceived(const geometry_msgs::msg::PoseWithCovarianceStampe
   transformStamped1.transform.rotation.w = q.w();
 
   //test_2
-  transformStamped2.header.frame_id = "map";
-  transformStamped2.child_frame_id = "odom2";
-  transformStamped2.transform.translation.x = msg->pose.pose.position.x;
-  transformStamped2.transform.translation.y = msg->pose.pose.position.y;
-  transformStamped2.transform.translation.z = 0.0;
-  transformStamped2.transform.rotation.x = q.x();
-  transformStamped2.transform.rotation.y = q.y();
-  transformStamped2.transform.rotation.z = q.z();
-  transformStamped2.transform.rotation.w = q.w();
+  // transformStamped2.header.frame_id = "map";
+  // transformStamped2.child_frame_id = "odom2";
+  // transformStamped2.transform.translation.x = msg->pose.pose.position.x;
+  // transformStamped2.transform.translation.y = msg->pose.pose.position.y;
+  // transformStamped2.transform.translation.z = 0.0;
+  // transformStamped2.transform.rotation.x = q.x();
+  // transformStamped2.transform.rotation.y = q.y();
+  // transformStamped2.transform.rotation.z = q.z();
+  // transformStamped2.transform.rotation.w = q.w();
 
 
 
@@ -115,8 +117,8 @@ map2odom::OdomsubReceived(const nav_msgs::msg::Odometry::SharedPtr msg)
   transformStamped1.header.stamp = this->get_clock()->now();
   transformStamped2.header.stamp = this->get_clock()->now();
   tf_broadcaster_->sendTransform(transformStamped);
-  tf_broadcaster_->sendTransform(transformStamped1);
-  tf_broadcaster_->sendTransform(transformStamped2);
+  // tf_broadcaster_->sendTransform(transformStamped1);
+  // tf_broadcaster_->sendTransform(transformStamped2);
 
   }
 }
